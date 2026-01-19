@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Broadcast Programs Manager</title>
+  <style>
+   
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --muted: #9ca3af;
+      --text: #e5e7eb;
+      --accent: #34d399;
+      --danger: #f87171;
+      --warn: #fbbf24;
+      --border: #1f2937;
+      --focus: #22d3ee;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      background: linear-gradient(180deg, #0b1220, #0f172a 40%, #111827);
+      color: var(--text);
+    }
+
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    header {
+      margin-bottom: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.4rem;
+      letter-spacing: 0.3px;
+    }
+    .toolbar {
+      display: flex;
+      gap: 8px;
+      width: 100%;
+    }
+    @media (min-width: 640px) {
+      .toolbar { width: auto; }
+    }
+
+   
+    .card {
+      background: rgba(17, 24, 39, 0.85);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+    @media (min-width: 768px) {
+      .grid {
+        grid-template-columns: 1fr 1.2fr;
+      }
+    }
+
+   
+    form .row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    @media (min-width: 640px) {
+      form .row.two { grid-template-columns: 1fr 1fr; }
+    }
+    label {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+      color: var(--muted);
+    }
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #0b1220;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    input:focus, select:focus {
+      border-color: var(--focus);
+      box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.2);
+    }
+    .field {
+      margin-bottom: 6px;
+    }
+    .error {
+      margin-top: 6px;
+      font-size: 0.85rem;
+      color: var(--danger);
+    }
+    .actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+      align-items: center;
+    }
+    button {
+      appearance: none;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #0b1220;
+      color: var(--text);
+      padding: 10px 14px;
+      cursor: pointer;
+      transition: transform 0.06s ease, border-color 0.2s, background 0.2s;
+    }
+    button:hover { transform: translateY(-1px); }
+    button:active { transform: translateY(0); }
+    .primary {
+      background: linear-gradient(180deg, #10b981, #059669);
+      border-color: #059669;
+    }
+    .secondary {
+      background: linear-gradient(180deg, #374151, #1f2937);
+      border-color: #374151;
+    }
+    .danger {
+      background: linear-gradient(180deg, #ef4444, #dc2626);
+      border-color: #dc2626;
+    }
+    button:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      filter: grayscale(30%);
+    }
+
+   
+    .search {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #0b1220;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 10px;
+    }
+    .search input {
+      border: none;
+      background: transparent;
+      width: 100%;
+      color: var(--text);
+      outline: none;
+    }
+
+    
+    .list-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .programs {
+      display: grid;
+      gap: 12px;
+    }
+    .program {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #0b1220;
+    }
+    .program .meta {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .program .title {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    .program .sub {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .program .tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+    .tag {
+      font-size: 0.8rem;
+      border: 1px dashed var(--border);
+      border-radius: 14px;
+      padding: 4px 8px;
+      color: var(--muted);
+    }
+    .program .controls {
+      display: flex;
+      gap: 6px;
+    }
+    .empty {
+      padding: 16px;
+      border: 1px dashed var(--border);
+      border-radius: 10px;
+      text-align: center;
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.4);
+    }
+
+    /* ---- Alerts ---- */
+    .alert {
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #0b1220;
+      font-size: 0.95rem;
+    }
+    .alert.success { border-color: #065f46; color: #d1fae5; background: #064e3b; }
+    .alert.warn { border-color: #92400e; color: #fffbeb; background: #78350f; }
+    .alert.error { border-color: #7f1d1d; color: #fee2e2; background: #7f1d1d; }
+
+    /* ---- Footer ---- */
+    footer {
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 0.85rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Broadcast Programs Manager</h1>
+      <div class="toolbar">
+        <div class="search" role="search">
+          <span aria-hidden="true">🔎</span>
+          <input id="searchInput" type="text" placeholder="Search by program name..." aria-label="Search programs by name" />
+        </div>
+        <button id="clearSearchBtn" class="secondary" type="button" aria-label="Clear search">Clear</button>
+      </div>
+    </header>
+
+    <div class="grid">
+     
+      <section class="card" aria-labelledby="formTitle">
+        <h2 id="formTitle" style="margin:0 0 8px;">Add / Edit Program</h2>
+        <form id="programForm" novalidate>
+          <div class="row two">
+            <div class="field">
+              <label for="name">Program name</label>
+              <input id="name" name="name" type="text" required maxlength="100" placeholder="e.g., Morning News" />
+              <div class="error" id="nameError" aria-live="polite"></div>
+            </div>
+            <div class="field">
+              <label for="category">Category</label>
+              <select id="category" name="category" required>
+                <option value="">Select a category</option>
+                <option>News</option>
+                <option>Music</option>
+                <option>Sports</option>
+                <option>Talk Show</option>
+                <option>Documentary</option>
+              </select>
+              <div class="error" id="categoryError" aria-live="polite"></div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label for="duration">Duration (minutes)</label>
+              <input id="duration" name="duration" type="number" inputmode="numeric" required min="1" max="300" placeholder="e.g., 60" />
+              <div class="error" id="durationError" aria-live="polite"></div>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button id="submitBtn" class="primary" type="submit">Add Program</button>
+            <button id="cancelEditBtn" class="secondary" type="button" hidden>Cancel Edit</button>
+            <span id="formStatus" class="alert success" hidden>Saved successfully.</span>
+          </div>
+        </form>
+      </section>
+
+     
+      <section class="card" aria-labelledby="listTitle">
+        <div class="list-header">
+          <h2 id="listTitle" style="margin:0;">Programs</h2>
+          <span id="count" aria-live="polite"></span>
+        </div>
+        <div id="programsList" class="programs" aria-live="polite"></div>
+        <div id="emptyState" class="empty" hidden>No programs yet.</div>
+      </section>
+    </div>
+
+    <footer>
+      Data is saved in your browser (localStorage). No backend is required yet.
+    </footer>
+  </div>
+
+  <script>
+   
+    const STORAGE_KEY = 'broadcast_programs_v1';
+    /** @type {Array<{id:string,name:string,category:string,duration:number}>} */
+    let programs = [];
+    let editingId = null; 
+    let searchTerm = '';
+
+   
+    function genId() {
+      if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+        return crypto.randomUUID();
+      }
+      return 'pg_' + Date.now() + '_' + Math.floor(Math.random() * 1e6);
+    }
+
+    function loadPrograms() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        programs = raw ? JSON.parse(raw) : [];
+        if (!Array.isArray(programs)) programs = [];
+      } catch (e) {
+        
+        programs = [];
+      }
+    }
+
+    function savePrograms() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(programs));
+      } catch (e) {
+       
+      }
+    }
+
+   
+    const form = document.getElementById('programForm');
+    const nameInput = document.getElementById('name');
+    const categoryInput = document.getElementById('category');
+    const durationInput = document.getElementById('duration');
+    const nameError = document.getElementById('nameError');
+    const categoryError = document.getElementById('categoryError');
+    const durationError = document.getElementById('durationError');
+    const submitBtn = document.getElementById('submitBtn');
+    const cancelEditBtn = document.getElementById('cancelEditBtn');
+    const formStatus = document.getElementById('formStatus');
+    const programsList = document.getElementById('programsList');
+    const emptyState = document.getElementById('emptyState');
+    const countEl = document.getElementById('count');
+    const searchInput = document.getElementById('searchInput');
+    const clearSearchBtn = document.getElementById('clearSearchBtn');
+
+    
+    function validateName() {
+      const value = nameInput.value.trim();
+      if (!value) {
+        nameError.textContent = 'Name is required.';
+        return false;
+      }
+      nameError.textContent = '';
+      return true;
+    }
+
+    function validateCategory() {
+      const value = categoryInput.value.trim();
+      if (!value) {
+        categoryError.textContent = 'Category is required.';
+        return false;
+      }
+      categoryError.textContent = '';
+      return true;
+    }
+
+    function validateDuration() {
+      const raw = durationInput.value.trim();
+      if (!raw) {
+        durationError.textContent = 'Duration is required.';
+        return false;
+      }
+      const num = Number(raw);
+      if (!Number.isFinite(num)) {
+        durationError.textContent = 'Duration must be a number.';
+        return false;
+      }
+      if (num < 1 || num > 300) {
+        durationError.textContent = 'Duration must be between 1 and 300 minutes.';
+        return false;
+      }
+      durationError.textContent = '';
+      return true;
+    }
+
+    function validateForm() {
+      const a = validateName();
+      const b = validateCategory();
+      const c = validateDuration();
+      const valid = a && b && c;
+      submitBtn.disabled = !valid;
+      return valid;
+    }
+
+    function attachValidation() {
+      ['input', 'blur'].forEach(evt => {
+        nameInput.addEventListener(evt, validateForm);
+        categoryInput.addEventListener(evt, validateForm);
+        durationInput.addEventListener(evt, validateForm);
+      });
+    }
+
+   
+    function renderList() {
+      programsList.innerHTML = '';
+      const filtered = getFilteredPrograms();
+      countEl.textContent = filtered.length ? `${filtered.length} program(s)` : '0 programs';
+      if (!filtered.length) {
+        emptyState.hidden = false;
+        return;
+      }
+      emptyState.hidden = true;
+
+      filtered.forEach((p) => {
+        const item = document.createElement('div');
+        item.className = 'program';
+
+        const meta = document.createElement('div');
+        meta.className = 'meta';
+
+        const title = document.createElement('div');
+        title.className = 'title';
+        title.textContent = p.name;
+
+        const sub = document.createElement('div');
+        sub.className = 'sub';
+        sub.textContent = `${p.duration} minutes`;
+
+        const tags = document.createElement('div');
+        tags.className = 'tags';
+        const tagCat = document.createElement('span');
+        tagCat.className = 'tag';
+        tagCat.textContent = p.category;
+        tags.appendChild(tagCat);
+
+        meta.appendChild(title);
+        meta.appendChild(sub);
+        meta.appendChild(tags);
+
+        const controls = document.createElement('div');
+        controls.className = 'controls';
+
+        const editBtn = document.createElement('button');
+        editBtn.className = 'secondary';
+        editBtn.type = 'button';
+        editBtn.textContent = 'Edit';
+        editBtn.addEventListener('click', () => startEdit(p.id));
+
+        const delBtn = document.createElement('button');
+        delBtn.className = 'danger';
+        delBtn.type = 'button';
+        delBtn.textContent = 'Delete';
+        delBtn.addEventListener('click', () => deleteProgram(p.id));
+
+        controls.appendChild(editBtn);
+        controls.appendChild(delBtn);
+
+        item.appendChild(meta);
+        item.appendChild(controls);
+
+        programsList.appendChild(item);
+      });
+    }
+
+    function getFilteredPrograms() {
+      const term = searchTerm.trim().toLowerCase();
+      if (!term) return programs.slice();
+      return programs.filter(p => p.name.toLowerCase().includes(term));
+    }
+
+    
+    function clearForm() {
+      form.reset();
+      nameError.textContent = '';
+      categoryError.textContent = '';
+      durationError.textContent = '';
+      editingId = null;
+      submitBtn.textContent = 'Add Program';
+      cancelEditBtn.hidden = true;
+      validateForm();
+    }
+
+    function showStatus(message, type = 'success') {
+      formStatus.textContent = message;
+      formStatus.className = 'alert ' + type;
+      formStatus.hidden = false;
+      setTimeout(() => { formStatus.hidden = true; }, 2000);
+    }
+
+    function getFormValues() {
+      return {
+        name: nameInput.value.trim(),
+        category: categoryInput.value.trim(),
+        duration: Number(durationInput.value.trim()),
+      };
+    }
+
+    function startEdit(id) {
+      const p = programs.find(x => x.id === id);
+      if (!p) return;
+      editingId = id;
+      nameInput.value = p.name;
+      categoryInput.value = p.category;
+      durationInput.value = String(p.duration);
+      submitBtn.textContent = 'Update Program';
+      cancelEditBtn.hidden = false;
+      validateForm();
+      nameInput.focus();
+    }
+
+    function deleteProgram(id) {
+      const p = programs.find(x => x.id === id);
+      const name = p ? p.name : 'this program';
+      const ok = window.confirm(`Delete "${name}"? This action cannot be undone.`);
+      if (!ok) return;
+      programs = programs.filter(x => x.id !== id);
+      savePrograms();
+      renderList();
+      if (editingId === id) clearForm();
+      showStatus('Program deleted.', 'warn');
+    }
+
+    function handleSubmit(e) {
+      e.preventDefault();
+      if (!validateForm()) return;
+
+      const { name, category, duration } = getFormValues();
+
+      if (editingId) {
+        const idx = programs.findIndex(x => x.id === editingId);
+        if (idx !== -1) {
+          programs[idx] = { ...programs[idx], name, category, duration };
+          savePrograms();
+          renderList();
+          showStatus('Program updated.');
+          clearForm();
+        }
+        return;
+      }
+
+      const program = {
+        id: genId(),
+        name,
+        category,
+        duration
+      };
+      programs.push(program);
+      savePrograms();
+      renderList();
+      showStatus('Program added.');
+      clearForm();
+    }
+
+    
+    function bindSearch() {
+      searchInput.addEventListener('input', () => {
+        searchTerm = searchInput.value;
+        renderList();
+      });
+      clearSearchBtn.addEventListener('click', () => {
+        searchTerm = '';
+        searchInput.value = '';
+        renderList();
+      });
+    }
+
+    
+    function init() {
+      loadPrograms();
+      attachValidation();
+      bindSearch();
+      renderList();
+      validateForm();
+
+      form.addEventListener('submit', handleSubmit);
+      cancelEditBtn.addEventListener('click', clearForm);
+    }
+
+    
+    init();
+  </script>
+</body>
+</html>

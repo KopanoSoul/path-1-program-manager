@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kopano Soul - Profile</title>
+  <style>
+    :root {
+      --bg: #0f1724;
+      --card: #0b1220;
+      --accent: #7c3aed;
+      --muted: #94a3b8;
+      --glass: rgba(255, 255, 255, 0.03);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: Inter, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: linear-gradient(180deg, #071029 0%, #071827 100%);
+      color: #e6eef8;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px;
+    }
+
+   
+    nav.main-nav {
+      width: 100%;
+      max-width: 760px;
+      background: var(--glass);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 12px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    nav.main-nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+
+    nav.main-nav a:hover {
+      background: var(--accent);
+    }
+
+   
+    .card {
+      background: linear-gradient(180deg, var(--card), #071022);
+      border-radius: 16px;
+      padding: 28px;
+      max-width: 760px;
+      width: 100%;
+      box-shadow: 0 8px 30px rgba(2, 6, 23, 0.6);
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .avatar {
+      width: 140px;
+      height: 140px;
+      border-radius: 18px;
+      overflow: hidden;
+      background: var(--glass);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 18px;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      margin: 0 0 6px 0;
+    }
+
+    p.bio {
+      margin: 0 0 12px 0;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .social {
+      display: flex;
+      gap: 8px;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+
+    .social a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      text-decoration: none;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      color: inherit;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+
+    .social a:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(124, 58, 237, 0.12);
+    }
+
+    .hobbies {
+      margin: 14px 0 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .hobbies li {
+      margin: 6px 0;
+    }
+
+    .actions {
+      margin-top: 10px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: linear-gradient(90deg, var(--accent), #4c1d95);
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 640px) {
+      .card {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="main-nav">
+    <a href="Profile.html">Profile</a>
+    <a href="Contact.html">Contact</a>
+    <a href="Programs.html">Programs</a>
+    <a href="Schedule.html">Schedule</a>
+	<a href="Blog_Post.html">Blog_Post</a>
+	<a href="To-Do List.html">To-Do List</a>
+    <a href="Form Validation.html">Form Validation</a>
+    <a href="Tabbed Interface.html">Tabbed Interface</a>
+	<a href="Image Gallary.html">Image Gallary</a>
+  </nav>
+
+ 
+  <article class="card" aria-labelledby="name">
+    <div class="avatar" role="img" aria-label="Profile picture">
+      <img src="KOPANO.jpg" alt="Kopano Soul's Profile Picture">
+    </div>
+
+    <div class="meta">
+      <header>
+        <h1 id="name">KOPANO SOUL</h1>
+        <p class="bio">Short bio: I’m a web developer and designer passionate about building accessible, fast,
+		and delightful web experiences. I enjoy crafting interfaces, learning new tech, and collaborating with creative teams.</p>
+      </header>
+
+      <nav class="social" aria-label="Social links">
+        <a href="https://wa.me/2768567626" target="_blank">WhatsApp</a>
+        <a href="https://www.tiktok.com/@Skopow" target="_blank">TikTok</a>
+        <a href="https://facebook.com/KopanoSkopow" target="_blank">Facebook</a>
+      </nav>
+
+      <section>
+        <h2 style="font-size:1rem;margin:18px 0 8px 0;color:var(--muted);">Hobbies</h2>
+        <ul class="hobbies" aria-label="List of hobbies">
+          <li>Reading</li>
+          <li>Coding</li>
+          <li>Travelling</li>
+          <li>Music</li>
+        </ul>
+      </section>
+
+      <div class="actions">
+        <a class="btn" href="Contact.html">Go to Contact Page</a>
+      </div>
+    </div>
+  </article>
+</body>
+</html>

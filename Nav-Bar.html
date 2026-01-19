@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyTV</title>
+  <style>
+   {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #071029;
+      color: #e6eef8;
+    }
+
+    
+    nav {
+      background: #0b1220;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    }
+
+    nav .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #7c3aed;
+      text-decoration: none;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #e6eef8;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    nav ul li a:hover {
+      background: #7c3aed;
+      color: white;
+    }
+
+  
+    @media (max-width: 600px) {
+      nav ul {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+ <button id="colorBtn">Change Background Color</button>
+
+  <nav>
+  <a href="Nav-Bar.html" class="logo">MyTV</a>
+  <ul>
+    <li><a href="Profile.html">Home</a></li>
+    <li><a href="Program-Form.html">Programs</a></li>
+    <li><a href="Schedule.html">Schedule</a></li>
+    <li><a href="Contact.html">Contact</a></li>
+	 <li><a href="Blog_Post.html">Blog_Post</a></li>
+	 <li><a href="To-Do List.html">To-Do List</a></li>
+    <li><a href="Form Validation.html">Form Validation</a></li>
+    <li><a href="Tabbed Interface.html">Tabbed Interface</a></li>
+	 <li><a href="Image Gallary.html">Image Gallary</a></li>
+  </ul>
+</nav>
+
+
+  <div style="padding: 40px; text-align:center;">
+    <h1>Welcome to MyTV</h1>
+    <p>"Your weekend starts here!"</p>
+  </div>
+
+<script>
+    const button = document.getElementById("colorBtn");
+
+    button.addEventListener("click", () => {
+      const colors = ["lightblue", "lightgreen", "lightpink", "lavender", "beige", "khaki"];
+      const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+      document.body.style.backgroundColor = randomColor;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyTV Schedule</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #071029;
+      color: #e6eef8;
+      margin: 0;
+    }
+
+    nav {
+      background: #0b1220;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    }
+
+    nav .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #7c3aed;
+      text-decoration: none;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #e6eef8;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    nav ul li a:hover {
+      background: #7c3aed;
+      color: white;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #7c3aed;
+      margin-bottom: 30px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #0b1220;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+    }
+
+    th {
+      background: #1e1e2e;
+      font-weight: 600;
+    }
+
+    tr:nth-child(even) {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    tr:hover {
+      background: rgba(124, 58, 237, 0.2);
+    }
+
+    @media (max-width: 600px) {
+      table, th, td {
+        display: block;
+      }
+      th, td {
+        padding: 10px;
+      }
+      th {
+        text-align: right;
+      }
+      td {
+        text-align: right;
+        position: relative;
+        padding-left: 50%;
+      }
+      td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 15px;
+        width: 45%;
+        font-weight: bold;
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+
+ 
+  <nav>
+    <a href="Nav-Bar.html" class="logo">MyTV</a>
+    <ul>
+      <li><a href="Profile.html">Home</a></li>
+      <li><a href="Programs.html">Programs</a></li>
+      <li><a href="Schedule.html">Schedule</a></li>
+      <li><a href="Contact.html">Contact</a></li>
+	   <li><a href="Nav-Bar.html">Nav-Bar</a></li>
+    </ul>
+  </nav>
+
+  
+  <main>
+    <h1>TV Schedule</h1>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Time Slot</th>
+          <th>Program Name</th>
+          <th>Duration (min)</th>
+          <th>Channel</th>
+          <th>Live?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="Time Slot">06:00 - 07:00</td>
+          <td data-label="Program Name">Morning News</td>
+          <td data-label="Duration">60</td>
+          <td data-label="Channel">SABC1</td>
+          <td data-label="Live?">Yes</td>
+        </tr>
+        <tr>
+          <td data-label="Time Slot">07:00 - 08:00</td>
+          <td data-label="Program Name">Cartoon Hour</td>
+          <td data-label="Duration">60</td>
+          <td data-label="Channel">SABC2</td>
+          <td data-label="Live?">No</td>
+        </tr>
+        <tr>
+          <td data-label="Time Slot">08:00 - 09:30</td>
+          <td data-label="Program Name">Cooking Show</td>
+          <td data-label="Duration">90</td>
+          <td data-label="Channel">SABC3</td>
+          <td data-label="Live?">No</td>
+        </tr>
+        <tr>
+          <td data-label="Time Slot">09:30 - 10:00</td>
+          <td data-label="Program Name">Morning Talk</td>
+          <td data-label="Duration">30</td>
+          <td data-label="Channel">eTV</td>
+          <td data-label="Live?">Yes</td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </main>
+
+</body>
+</html>

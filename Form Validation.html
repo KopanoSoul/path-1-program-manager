@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Form Validation</title>
+  <style>
+    .error {
+      color: red;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <form id="myForm">
+    <label>
+      Name (required):
+      <input type="text" name="name" required>
+      <span class="error"></span>
+    </label>
+    <br><br>
+    <label>
+      Email (required):
+      <input type="text" name="email" required>
+      <span class="error"></span>
+    </label>
+    <br><br>
+    <label>
+      Age (required):
+      <input type="number" name="age" required>
+      <span class="error"></span>
+    </label>
+    <br><br>
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('myForm');
+
+    form.addEventListener('submit', function(event) {
+      let isValid = true;
+
+      
+      const errorSpans = form.querySelectorAll('.error');
+      errorSpans.forEach(span => span.textContent = '');
+
+     
+      const inputs = form.querySelectorAll('input[required]');
+      inputs.forEach(input => {
+        const errorSpan = input.nextElementSibling;
+        if (input.value.trim() === '') {
+          errorSpan.textContent = `${input.name} is required.`;
+          isValid = false;
+        } else if (input.name === 'email') {
+         
+          const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailPattern.test(input.value.trim())) {
+            errorSpan.textContent = 'Invalid email format.';
+            isValid = false;
+          }
+        }
+      });
+
+   
+      if (!isValid) {
+        event.preventDefault();
+      }
+    });
+  </script>
+</body>
+</html>

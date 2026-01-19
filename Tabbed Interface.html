@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tabbed Interface</title>
+  <style>
+    /* Basic tab button styles */
+    .tab-buttons {
+      display: flex;
+      margin-bottom: 10px;
+    }
+    .tab-buttons button {
+      flex: 1;
+      padding: 10px;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      background-color: #f1f1f1;
+      transition: background-color 0.3s;
+    }
+    .tab-buttons button:hover {
+      background-color: #ddd;
+    }
+    /* Active tab style */
+    .tab-buttons button.active {
+      background-color: #4285f4;
+      color: white;
+      font-weight: bold;
+    }
+    /* Content sections */
+    .tab-content {
+      display: none;
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-top: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="tab-buttons">
+    <button class="active" data-tab="tab1">Tab 1</button>
+    <button data-tab="tab2">Tab 2</button>
+    <button data-tab="tab3">Tab 3</button>
+  </div>
+
+  <div id="tab1" class="tab-content active">
+    <h2>Content for Tab 1</h2>
+    <p>This is the first tab’s content.</p>
+  </div>
+  <div id="tab2" class="tab-content">
+    <h2>Content for Tab 2</h2>
+    <p>This is the second tab’s content.</p>
+  </div>
+  <div id="tab3" class="tab-content">
+    <h2>Content for Tab 3</h2>
+    <p>This is the third tab’s content.</p>
+  </div>
+
+  <script>
+    const buttons = document.querySelectorAll('.tab-buttons button');
+    const contents = document.querySelectorAll('.tab-content');
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        
+        buttons.forEach(btn => btn.classList.remove('active'));
+      
+        contents.forEach(content => content.classList.remove('active'));
+
+       
+        button.classList.add('active');
+        
+        document.getElementById(button.dataset.tab).classList.add('active');
+      });
+    });
+  </script>
+
+</body>
+</html>
